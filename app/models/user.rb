@@ -21,7 +21,7 @@ class User < ActiveRecord::Base
 
   # 他のユーザーをフォローする
   def follow(other_user)
-    following_relationships.create(followed_id: other_user.id)
+    following_relationships.find_or_create_by(followed_id: other_user.id)
   end
 
   def unfollow(other_user)
@@ -36,34 +36,34 @@ class User < ActiveRecord::Base
 
   # itemをwantする
   def want(item)
-    wants.create(item.id)
+    wants.find_or_create_by(item_id: item.id)
   end
 
   # itemのwantを解除する
   def unwant(item)
-    want_users.find_by(item.id).destroy
+    wants.find_by(item_id: item.id).destroy
   end
 
   # あるitemをwantしているかどうか？
   def want?(item)
-    wants.include?(item)
+    want_items.include?(item)
   end
   
 ###################################################
   
   # itemをhaveする
   def have(item)
-    haves.create(item.id)
+    haves.find_or_create_by(item_id: item.id)
   end
 
   # itemのhaveを解除する
   def unhave(item)
-    have_users.find_by(item.id).destroy
+    haves.find_by(item_id: item.id).destroy
   end
 
   # あるitemをhaveしているかどうか？
   def have?(item)
-    haves.include?(item)
+    have_items.include?(item)
   end
   
 
