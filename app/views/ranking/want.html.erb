@@ -1,0 +1,27 @@
+<center><h1>"Want"されてるランキング！</h1></center>
+
+<div class="container">
+  <div class="container-inner inner-default clearfix">
+    <% temp = 1 %>
+    <% @top10want_items.each do |item| %>
+      <div class="item-box">
+        <div class="image">
+          <div class="img-wrap">
+            <% if item.large_image.present? %>
+              <%= image_tag(item.large_image , alt: item.title) %>
+            <% else %>
+              <%= image_tag("no-image.png" , alt: item.title) %>
+            <% end %>
+          </div>
+        </div>
+        <div class="detail">
+          <p class="title">
+            <span class="label label-danger">第 <%= temp %> 位</span>： <%= item.title %>
+          </p>
+        </div>
+        <%= render 'items/action' , item: item if logged_in? %>
+      </div>
+    <% temp = temp + 1 %>
+    <% end %>
+  </div>
+</div>
