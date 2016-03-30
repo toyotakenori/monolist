@@ -13,6 +13,7 @@ class OwnershipsController < ApplicationController
       begin
         # TODO 商品情報の取得 Amazon::Ecs.item_lookupを用いてください
         response = Amazon::Ecs.item_lookup(params[:asin] , 
+                                # :search_index => 'All' , 
                                   :response_group => 'Medium' , 
                                   :country => 'jp')
       rescue Amazon::RequestError => e
